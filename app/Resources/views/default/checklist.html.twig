@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-3">
+        <div id="myDIV1" class="header">
+            <h2 style="margin:5px">My To Do List</h2>
+            <input type="text" id="myInput1" placeholder="Title...">
+            <span onclick="newElement('myInput1', 'myUL1')" class="addBtn">Add</span>
+        </div>
+
+        <ul id="myUL1">
+            <li onclick="check('myUL1')">Hit the gym</li>
+            <li onclick="check('myUL1')">Pay bills</li>
+            <li onclick="check('myUL1')">Meet George</li>
+            <li onclick="check('myUL1')">Buy eggs</li>
+            <li onclick="check('myUL1')">Read a book</li>
+            <li onclick="check('myUL1')">Organize office</li>
+        </ul>
+    </div>
+
+
+    <div class="col-md-3">
+        <div id="myDIV2" class="header">
+            <h2 style="margin:5px">My To Do List</h2>
+            <input type="text" id="myInput2" placeholder="Title...">
+            <span onclick="newElement('myInput2', 'myUL2')" class="addBtn">Add</span>
+        </div>
+
+        <ul id="myUL2">
+            <li onclick="check('myUL2')">Hit the gym</li>
+            <li onclick="check('myUL2')">Pay bills</li>
+            <li onclick="check('myUL2')">Meet George</li>
+            <li onclick="check('myUL2')">Buy eggs</li>
+            <li onclick="check('myUL2')">Read a book</li>
+            <li onclick="check('myUL2')">Organize office</li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}
