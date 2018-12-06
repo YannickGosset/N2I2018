@@ -23,7 +23,6 @@ class DefaultController extends Controller
      * @Route("/testgraph", name="testgraphe")
      */
     public function testGraphAction(Request $request){
-        $var = 2;
         return $this->render('default/testgraphe.html.twig');
     }
 }
