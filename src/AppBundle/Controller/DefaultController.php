@@ -18,4 +18,12 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * @Route("/testgraph", name="testgraphe")
+     */
+    public function testGraphAction(Request $request){
+        $var = 2;
+        return $this->render('default/testgraphe.html.twig');
+    }
 }
