@@ -20,17 +20,29 @@ class DefaultController extends Controller
             ->getRepository('AppBundle:Type')
             ->findBy([], ['id' => 'asc']);
 
+        $coordinates = $this->getDoctrine()
+            ->getRepository('AppBundle:Coordinates')
+            ->find(1);
+
+        if($coordinates == null){
+            $coordinates = new Coordinates();
+            $coordinates->setLatitude('30');
+            $coordinates->setLongitude('-20');
+        }
+
         return $this->render('default/index.html.twig', [
-            'menus' => $menus
+            'menus' => $menus,
+            'coordinates' => $coordinates
         ]);
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/modify-coordinates", name="modify-coordinates", options={"expose" = true})
      * @param Request $request
      * @return Response
      */
-    public function quitEventAction(Request $request)
+    public function modifyCoordinatesAction(Request $request)
     {
         // On récupère les données de la requête
         $data = $request->request->all();
@@ -50,5 +62,12 @@ class DefaultController extends Controller
         }
 
         return new Response('OK');
+    }
+
+    /*
+     * @Route("/testgraph", name="testgraphe")
+     */
+    public function testGraphAction(Request $request){
+        return $this->render('default/testgraphe.html.twig');
     }
 }

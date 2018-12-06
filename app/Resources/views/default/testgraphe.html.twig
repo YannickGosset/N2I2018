@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/jqquery.jqplot.min.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="chart"></div>
+{% endblock %}
+
+
+{%  block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.jqplot.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPluginsMin/jqplot.cursor.min.js') }}"></script>
+    <script src="{{ asset('assets/js/graphe.js') }}"></script>
+{% endblock %}
