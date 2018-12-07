@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Coordinates;
+use AppBundle\Entity\DarkMode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,9 +31,20 @@ class DefaultController extends Controller
             $coordinates->setLongitude('-20');
         }
 
+        $darkMode = $this->getDoctrine()
+            ->getRepository('AppBundle:DarkMode')
+            ->find(1);
+
+        if($darkMode == null){
+            $darkMode = new DarkMode();
+            $darkMode->setBgColor('#777');
+            $darkMode->setCardStyle('bg-light_black');
+        }
+
         return $this->render('default/index.html.twig', [
             'menus' => $menus,
-            'coordinates' => $coordinates
+            'coordinates' => $coordinates,
+            'darkMode' => $darkMode
         ]);
     }
 

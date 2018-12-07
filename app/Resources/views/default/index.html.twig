@@ -100,9 +100,27 @@
     {{ parent() }}
     <script>
         $(document).on('click', '#llama', function () {
-            $('body').append('<audio id="fortniteSong" loop><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
+            $('body').append('<audio id="fortniteSong"><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
                 + 'Your browser does not support the audio element.</audio>');
             $('#fortniteSong')[0].play();
+            $('body').append('<img id="bigLlama" src="{{ asset('challenges/llama.gif') }}?a=' + Math.random() + '" style="z-index: 99; position: absolute; left: 22%; top: 0; margin: auto!important; width: 50%; height: 700px;">')
+            $('#fortniteSong').on('ended', function() {
+                $('#bigLlama').remove();
+            });
         })
+
+        $('#nightMode').on('change', function () {
+            nightMode = !nightMode;
+            if(nightMode){
+                plotReserve.activateTheme('darkTheme');
+                $('body').css('background-color', '{{ darkMode.bgColor }}');
+                $('.card').addClass("{{ darkMode.cardStyle }}");
+                $('.card-footer').addClass("{{ darkMode.cardStyle }}");
+            } else {
+                $('body').css('background-color', '');
+                $('.card').removeClass("{{ darkMode.cardStyle }}");
+                $('.card-footer').removeClass("{{ darkMode.cardStyle }}");
+            }
+        });
     </script>
 {% endblock %}

@@ -126,15 +126,6 @@ $('#reserveDisplayer').on('click', function () {
     plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
 });
 
-$('#nightMode').on('change', function () {
-    nightMode = !nightMode;
-    if(nightMode){
-        plotReserve.activateTheme('darkTheme');
-    } else {
-
-    }
-});
-
 $('#locationDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#locationLayer').addClass('active').fadeIn();
