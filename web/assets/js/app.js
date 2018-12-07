@@ -3,7 +3,7 @@ let nightMode = false;
 let map;
 let marker;
 
-let darkTheme = {
+let darkThemeReserve = {
     title: {
         textColor: '#b7b7b7'
     },
@@ -24,7 +24,7 @@ let darkTheme = {
 
 };
 
-let options = {
+let optionsMaintenance = {
     series: [{
         label: 'Temperature',
         neighborThreshold: -1
@@ -45,13 +45,32 @@ let options = {
                 }
             }
         ]
+    },
+    legend: {
+        show: true,
+        renderer: $.jqplot.EnhancedLegendRenderer,
+        placement: "outsideGrid",
+        labels: ['Temperature'],
+        location: "s",
+        rowSpacing: "0px",
+        shrinkGrid : true,
+
+        rendererOptions: {
+            // set to true to replot when toggling series on/off
+            // set to an options object to pass in replot options.
+            numberColumns : 3,
+            seriesToggle: 'normal',
+            seriesToggleReplot: {resetAxes: true}
+        }
     }
 };
 
-options = addCursor(options);
-options = addHighlighting(options);
-options = setTitle(options, 'Body Temperature');
-//var plot = createPlot('chart', [[30,-10,90,20,50,130,80,120,50]], options);
+optionsMaintenance = addCursor(optionsMaintenance);
+optionsMaintenance = addHighlighting(optionsMaintenance);
+optionsMaintenance = setTitle(optionsMaintenance, 'Engine Temperature');
+toggleOnAnimatePlot(optionsMaintenance);
+let dataMaintenance = [[30,-10,90,20,50,130,80,120,50]];
+
 let labels = ['Eau', 'Nourriture'];
 let optionsReserve = {
     axes: {
@@ -59,20 +78,26 @@ let optionsReserve = {
             renderer:$.jqplot.DateAxisRenderer,
             rendererOptions: {tickInset: 0},
             tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-            tickOptions: {angle: -30},
+            tickOptions: {angle: -30, fontSize: '8pt', textColor:'black'},
             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-            labelsOptions: {fontSize: '50pt', textColor: 'black'}
+            labelOptions: {fontSize: '8pt', textColor: 'black'}
         },
         yaxis:{
             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-            useSeriesColor : true,
+            labelOptions: {fontSize: '8pt', textColor: 'black'},
+            //tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+            tickOptions: {fontSize: '8pt', textColor:'black'},
+            rendererOptions: {
+                // align the ticks on the yN axis with the y axis.
+                alignTicks: false
+            },
             padMax : 1.01,
-            padMin : 1.01,
-            labelsOptions: {fontSize: '50pt', textColor: 'red'}
+            padMin : 1.01
         }
     },
     legend: {
         show: true,
+        preDraw: true,
         renderer: $.jqplot.EnhancedLegendRenderer,
         placement: "outsideGrid",
         labels: labels,
@@ -92,6 +117,7 @@ let optionsReserve = {
 optionsReserve = setTitle(optionsReserve,'Réserves');
 optionsReserve = addCursor(optionsReserve);
 optionsReserve = addHighlighting(optionsReserve);
+toggleOnAnimatePlot(optionsReserve);
 
 let dataReserve = [
     [['6/12/2018',1000],['7/12/2018',950],['8/12/2018',870],['9/12/2018',842], ['10/12/2018',903]],
@@ -123,7 +149,14 @@ $('#reserveDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#reserveLayer').addClass('active').fadeIn();
     let plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
-    plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
+    plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+});
+
+$('#maintenanceDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#maintenanceLayer').addClass('active').fadeIn();
+    let plotMaintenance = createPlot('plotMaintenance', dataMaintenance, optionsMaintenance);
+    //plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
 });
 
 $('#locationDisplayer').on('click', function () {

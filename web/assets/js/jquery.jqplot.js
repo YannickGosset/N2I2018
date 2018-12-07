@@ -538,7 +538,7 @@
         $.jqplot.ElemContainer.call(this);
         // Group: Properties
         //
-        // Axes options are specified within an axes object at the top level of the 
+        // Axes options are specified within an axes object at the top level of the
         // plot options like so:
         // > {
         // >    axes: {
@@ -1761,7 +1761,7 @@
         // animation in these situations can cause problems.
         this.animateReplot = false;
         // prop: axes
-        // up to 4 axes are supported, each with its own options, 
+        // up to 4 axes are supported, each with its own options,
         // See <Axis> for axis specific options.
         this.axes = {xaxis: new Axis('xaxis'), yaxis: new Axis('yaxis'), x2axis: new Axis('x2axis'), y2axis: new Axis('y2axis'), y3axis: new Axis('y3axis'), y4axis: new Axis('y4axis'), y5axis: new Axis('y5axis'), y6axis: new Axis('y6axis'), y7axis: new Axis('y7axis'), y8axis: new Axis('y8axis'), y9axis: new Axis('y9axis'), yMidAxis: new Axis('yMidAxis')};
         this.baseCanvas = new $.jqplot.GenericCanvas();
@@ -4720,7 +4720,7 @@
     };
  
     // Class: $.jqplot.DivTitleRenderer
-    // The default title renderer for jqPlot.  This class has no options beyond the <Title> class. 
+    // The default title renderer for jqPlot.  This class has no options beyond the <Title> class.
     $.jqplot.DivTitleRenderer = function() {
     };
     
@@ -6478,7 +6478,7 @@
                 var ret = $.jqplot.LinearTickGenerator(min, max, this._scalefact, _numberTicks, keepMin, keepMax); 
                 // calculate a padded max and min, points should be less than these
                 // so that they aren't too close to the edges of the plot.
-                // User can adjust how much padding is allowed with pad, padMin and PadMax options. 
+                // User can adjust how much padding is allowed with pad, padMin and PadMax options.
                 // If min or max is set, don't pad that end of axis.
                 var tumin = (this.min != null) ? min : min + range*(this.padMin - 1);
                 var tumax = (this.max != null) ? max : max - range*(this.padMax - 1);
