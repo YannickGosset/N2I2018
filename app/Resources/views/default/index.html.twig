@@ -3,8 +3,8 @@
 {% block body %}
             <div id="displayer">
 
-                <div id="homeLayer" class="active">
-                    Hello!
+                <div id="homeLayer" class="active text-center">
+                    <h1>Nuit de l'Info 2018</h1>
                 </div>
 
                 <div id="settingsLayer" class="text-center" style="display: none;">
@@ -112,9 +112,38 @@
     {{ parent() }}
     <script>
         $(document).on('click', '#llama', function () {
-            $('body').append('<audio id="fortniteSong" loop><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
+            $('body').append('<audio id="fortniteSong"><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
                 + 'Your browser does not support the audio element.</audio>');
             $('#fortniteSong')[0].play();
+            $('body').append('<img id="bigLlama" src="{{ asset('challenges/llama.gif') }}?a=' + Math.random() + '" style="z-index: 99; position: absolute; left: 22%; top: 0; margin: auto!important; width: 50%; height: 700px;">')
+            $('#fortniteSong').on('ended', function() {
+                $('#bigLlama').remove();
+            });
         })
+
+        $('#nightMode').on('change', function () {
+            nightMode = !nightMode;
+            if(nightMode){
+                if(plotReserve !== undefined){
+                    plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+                    plotReserve.activateTheme('darkThemeReserve');
+                }
+                $('body').css('background-color', '{{ darkMode.bgColor }}');
+                $('.card').addClass("{{ darkMode.cardStyle }}");
+                $('th').css('border-top', '1px solid #444').css('border-bottom', '1px solid #444');
+                $('.table td, .table th').attr('style', 'border-top: 1px solid #444!important');
+                $('.card-footer').addClass("{{ darkMode.cardStyle }}");
+                $('.sticky-footer').addClass("{{ darkMode.cardStyle }}");
+                $('.slider').css('background-color', '#444');
+            } else {
+                $('body').css('background-color', '');
+                $('th').css('border-top', '').css('border-bottom', '');
+                $('.table td').css('border-top', '');
+                $('.card').removeClass("{{ darkMode.cardStyle }}");
+                $('.card-footer').removeClass("{{ darkMode.cardStyle }}");
+                $('.sticky-footer').removeClass("{{ darkMode.cardStyle }}");
+                $('.slider').css('background-color', '');
+            }
+        });
     </script>
 {% endblock %}
