@@ -21,7 +21,7 @@
                     </table>
                 </div>
 
-                <div class="locationLayer" style="display: none;">
+                <div id="locationLayer" style="display: none;">
                     <div id="map"></div>
                     <div id="locationAlerts"></div>
                 </div>
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="float-right">
                                     <a href="#">
-                                        <i class="fas fa-bell fa-fw"></i>
+                                        <i class="fas fa-bell fa-fw text-white"></i>
                                         {% if menu.notifications is not empty %}
                                         <span class="badge badge-danger">{{ menu.notifications|length }}</span>
                                         {% endif %}
@@ -79,6 +79,21 @@
             lat: {{ coordinates.latitude }},
             lng: {{ coordinates.longitude }}
         };
+
+        function randomLLama(){
+            let random = Math.floor((Math.random() * 10) + 1);
+            if(random <= 10){
+                $('body').append('<img id="llama" src="{{ asset('challenges/llama.png') }}" class="llama">');
+            }
+        }
     </script>
     {{ parent() }}
+    <script>
+        $(document).on('click', '#llama', function () {
+            console.log('FORTNITE');
+            $('body').append('<audio id="fortniteSong" loop><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
+                + 'Your browser does not support the audio element.</audio>');
+            $('#fortniteSong')[0].play();
+        })
+    </script>
 {% endblock %}

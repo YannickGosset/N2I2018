@@ -37,31 +37,55 @@ class DefaultController extends Controller
     }
 
     /**
-<<<<<<< HEAD
      * @Route("/modify-coordinates", name="modify-coordinates", options={"expose" = true})
      * @param Request $request
      * @return Response
      */
     public function modifyCoordinatesAction(Request $request)
     {
-        // On récupère les données de la requête
         $data = $request->request->all();
 
         $coordinates = $this->getDoctrine()
             ->getRepository('AppBundle:Coordinates')
             ->find(1);
 
+        $em = $this->getDoctrine()->getManager();
+
         if ($coordinates == null) {
             $coordinates = new Coordinates();
             $coordinates->setLatitude($data['latitude']);
-            $coordinates->setLatitude($data['longitude']);
-
-            $em = $this->getDoctrine()->getManager();
+            $coordinates->setLongitude($data['longitude']);
             $em->persist($coordinates);
-            $em->flush();
+        } else {
+            $coordinates->setLatitude($data['latitude']);
+            $coordinates->setLongitude($data['longitude']);
         }
+        $em->flush();
 
         return new Response('OK');
+    }
+
+    /**
+     * @Route("/get-coordinates", name="get-coordinates", options={"expose" = true})
+     * @param Request $request
+     * @return Response
+     */
+    public function getCoordinatesAction(Request $request)
+    {
+        $coordinates = $this->getDoctrine()
+            ->getRepository('AppBundle:Coordinates')
+            ->find(1);
+
+        if ($coordinates == null) {
+            return new Response(json_encode([
+              'latitude' => '20',
+              'longitude' => '-30'
+            ], JSON_FORCE_OBJECT));
+        }
+        return new Response(json_encode([
+            'latitude' => $coordinates->getLatitude(),
+            'longitude' => $coordinates->getLongitude()
+        ], JSON_FORCE_OBJECT));
     }
 
     /*
