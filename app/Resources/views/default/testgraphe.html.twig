@@ -2,11 +2,16 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/css/jqquery.jqplot.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.jqplot.min.css') }}" />
 {% endblock %}
 
 {% block body %}
+    <br/>
     <div id="chart"></div>
+    <br/>
+    <div id="chartWaterTank"></div>
+    <br/>
+    <div id="chartHeartFrequence"></div>
 {% endblock %}
 
 
@@ -14,6 +19,13 @@
     {{ parent() }}
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.jqplot.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jqplotPluginsMin/jqplot.cursor.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.cursor.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.highlighter.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.canvasOverlay.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.enhancedLegendRenderer.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.canvasAxisLabelRenderer.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.canvasAxisTickRenderer.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.canvasTextRenderer.js') }}"></script>
+    <script src="{{ asset('assets/js/jqplotPlugins/jqplot.DateAxisRenderer.js') }}"></script>
     <script src="{{ asset('assets/js/graphe.js') }}"></script>
 {% endblock %}
