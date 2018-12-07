@@ -7,6 +7,14 @@
                     Hello!
                 </div>
 
+                <div id="settingsLayer" class="text-center" style="display: none;">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    Mode Nuit
+                </div>
+
                 <div id="weatherLayer" style="display: none;">
                     <table class="table">
                         <thead>
@@ -81,10 +89,7 @@
         };
 
         function randomLLama(){
-            let random = Math.floor((Math.random() * 10) + 1);
-            if(random <= 10){
-                $('body').append('<img id="llama" src="{{ asset('challenges/llama.png') }}" class="llama">');
-            }
+            $('body').append('<img id="llama" src="{{ asset('challenges/llama.png') }}" class="llama">');
         }
     </script>
     {{ parent() }}

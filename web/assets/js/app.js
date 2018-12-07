@@ -18,6 +18,11 @@ $('#weatherDisplayer').on('click', function () {
     getWeatherInformations();
 });
 
+$('#settingsDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#settingsLayer').addClass('active').fadeIn();
+});
+
 $('#locationDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#locationLayer').addClass('active').fadeIn();
