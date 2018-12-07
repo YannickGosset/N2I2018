@@ -30,18 +30,6 @@ function setTitle(options, title){
     return options;
 }
 
-function updateHeartBeatFreq(heartbeatPlot) {
-    heartbeat.splice(0, 1);
-    beat = Math.floor(Math.random() * 100);
-    heartbeat.push([beat]);
-
-    plot1.series[0].data = myData;
-    plot1.resetAxesScale();
-    plot1.axes.xaxis.numberTicks = 10;
-    plot1.axes.y2axis.numberTicks = 15;
-    plot1.replot();
-}
-
 /*
 * createPlot(target,data,options)
 * target : the id where plot will be add 'id'
@@ -52,7 +40,6 @@ function createPlot(target, data, options){
     return $.jqplot (target, data, options);
 }
 
-$(document).ready(function(){
 
 
-});
+

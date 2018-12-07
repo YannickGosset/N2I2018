@@ -88,12 +88,6 @@ class DefaultController extends Controller
         ], JSON_FORCE_OBJECT));
     }
 
-    /*
-     * @Route("/testgraph", name="testgraphe")
-     */
-    public function testGraphAction(Request $request){
-        return $this->render('default/testgraphe.html.twig');
-    }
 
     /**
      * @Route("/checklist", name="checklist")

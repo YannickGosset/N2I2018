@@ -1,4 +1,5 @@
 const OWeatherMapAPIKey = "947d2e709c1ef57b6f9227766170be0e";
+
 let nightMode = false;
 let map;
 let marker;
@@ -125,6 +126,43 @@ let dataReserve = [
 ];
 
 
+let optionsHealth = {
+    title: 'HeartBeat Frequence',
+    series: [
+        {
+            label: 'HeartBeatRate',
+            showMarker: false,
+            fill: false,
+            neighborThreshold: 3,
+            lineWidth: 2,
+            color: '#0571B6',
+            fillAndStroke: true
+        }
+    ],
+    cursor: {
+        zoom: false,
+        showTooltip: false,
+        show: false
+    },
+    highlighter: {
+        useAxesFormatters: false,
+        showMarker: false,
+        show: false
+    },
+    grid: {
+        gridLineColor: '#333333',
+        background: 'transparent',
+        borderWidth: 1
+    }
+};
+
+let dataHealth = [
+    [68,82,111,120,109,88, 105]
+];
+
+
+
+
 $(document).ready(function () {
     randomLLama();
 });
@@ -156,8 +194,16 @@ $('#maintenanceDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#maintenanceLayer').addClass('active').fadeIn();
     let plotMaintenance = createPlot('plotMaintenance', dataMaintenance, optionsMaintenance);
-    //plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
 });
+let plotHeartBeat;
+$('#healthDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#healthLayer').addClass('active').fadeIn();
+    plotHeartBeat = createPlot('plotHealth', dataHealth, optionsHealth);
+    window.setInterval(updateSeries, 1000);
+});
+
+
 
 $('#nightMode').on('change', function () {
     nightMode = !nightMode;
@@ -271,4 +317,17 @@ function onMapClick(e) {
             $("#successModif").slideUp(500);
         });
     });
+}
+
+function updateSeries() {
+    dataHealth[0].splice(0, 1);
+    x = dataHealth[0].size;
+    y = Math.floor(Math.random() * 100)+40;
+    dataHealth[0].push([x, y]);
+
+    plotHeartBeat.series[0].data = dataHealth[0];
+    plotHeartBeat.resetAxesScale();
+    plotHeartBeat.axes.xaxis.numberTicks = 10;
+    plotHeartBeat.axes.y2axis.numberTicks = 15;
+    plotHeartBeat.replot();
 }
