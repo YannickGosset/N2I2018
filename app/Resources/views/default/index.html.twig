@@ -9,10 +9,15 @@
 
                 <div id="settingsLayer" class="text-center" style="display: none;">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input id="nightMode" type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    Mode Nuit
+                    <p>Mode Nuit</p>
+                </div>
+
+                <div id="reserveLayer"  class="text-center" style="display: none;">
+                    <div id="plotReserve"></div>
+                    <p class="text-muted">Sélectionnez une zone pour zoomer</p>
                 </div>
 
                 <div id="weatherLayer" style="display: none;">
@@ -35,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-xl-1 col-sm-1 mb-3"></div>
                     {% set i = 0 %}
                     {% for menu in menus %}
@@ -95,7 +100,6 @@
     {{ parent() }}
     <script>
         $(document).on('click', '#llama', function () {
-            console.log('FORTNITE');
             $('body').append('<audio id="fortniteSong" loop><source src="{{ asset('challenges/dance-moves.mp3') }}" type="audio/mpeg">'
                 + 'Your browser does not support the audio element.</audio>');
             $('#fortniteSong')[0].play();
