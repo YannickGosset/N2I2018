@@ -59,7 +59,7 @@
      * For more complete control, the "formatString" option can be set.  This
      * Allows conplete control over tooltip formatting.  Values are passed to
      * the format string in an order determined by the "tooltipAxes" and "yvalues"
-     * options.  So, if you have a hi-low-close chart and you just want to display 
+     * options.  So, if you have a hi-low-close chart and you just want to display
      * the hi-low-close values in the tooltip, you could set a formatString like:
      * 
      * > highlighter: {

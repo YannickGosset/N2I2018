@@ -3,7 +3,7 @@ let nightMode = false;
 let map;
 let marker;
 
-let darkTheme = {
+let darkThemeReserve = {
     title: {
         textColor: '#b7b7b7'
     },
@@ -24,7 +24,7 @@ let darkTheme = {
 
 };
 
-let options = {
+let optionsMaintenance = {
     series: [{
         label: 'Temperature',
         neighborThreshold: -1
@@ -45,13 +45,31 @@ let options = {
                 }
             }
         ]
+    },
+    legend: {
+        show: true,
+        renderer: $.jqplot.EnhancedLegendRenderer,
+        placement: "outsideGrid",
+        labels: ['Temperature'],
+        location: "s",
+        rowSpacing: "0px",
+        shrinkGrid : true,
+
+        rendererOptions: {
+            // set to true to replot when toggling series on/off
+            // set to an options object to pass in replot options.
+            numberColumns : 3,
+            seriesToggle: 'normal',
+            seriesToggleReplot: {resetAxes: true}
+        }
     }
 };
 
-options = addCursor(options);
-options = addHighlighting(options);
-options = setTitle(options, 'Room Temperature');
-//var plot = createPlot('chart', [[30,-10,90,20,50,130,80,120,50]], options);
+optionsMaintenance = addCursor(optionsMaintenance);
+optionsMaintenance = addHighlighting(optionsMaintenance);
+optionsMaintenance = setTitle(optionsMaintenance, 'Engine Temperature');
+let dataMaintenance = [[30,-10,90,20,50,130,80,120,50]];
+
 let labels = ['Eau', 'Nourriture'];
 let optionsReserve = {
     axes: {
@@ -128,13 +146,20 @@ $('#reserveDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#reserveLayer').addClass('active').fadeIn();
     let plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
-    plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
+    plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+});
+
+$('#maintenanceDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#maintenanceLayer').addClass('active').fadeIn();
+    let plotMaintenance = createPlot('plotMaintenance', dataMaintenance, optionsMaintenance);
+    //plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
 });
 
 $('#nightMode').on('change', function () {
     nightMode = !nightMode;
     if(nightMode){
-        plotReserve.activateTheme('darkTheme');
+        plotReserve.activateTheme('darkThemeReserve');
     } else {
 
     }
