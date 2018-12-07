@@ -130,5 +130,28 @@ class ElementListe
     {
         return $this->displayed;
     }
-}
 
+    /**
+     * Set liste
+     *
+     * @param \AppBundle\Entity\Liste $liste
+     *
+     * @return ElementListe
+     */
+    public function setListe(\AppBundle\Entity\Liste $liste)
+    {
+        $this->liste = $liste;
+
+        return $this;
+    }
+
+    /**
+     * Get liste
+     *
+     * @return \AppBundle\Entity\Liste
+     */
+    public function getListe()
+    {
+        return $this->liste;
+    }
+}

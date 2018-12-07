@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\AppBundle;
 use AppBundle\Entity\Coordinates;
 use AppBundle\Entity\DarkMode;
+use AppBundle\Entity\ElementListe;
+use AppBundle\Entity\Liste;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,10 @@ class DefaultController extends Controller
             ->getRepository('AppBundle:Coordinates')
             ->find(1);
 
+        $em = $this->getDoctrine()->getManager();
+        $lists = $em->getRepository('AppBundle:Liste')->findAll();
+        $elements = $em->getRepository('AppBundle:ElementListe')->findAll();
+
         if($coordinates == null){
             $coordinates = new Coordinates();
             $coordinates->setLatitude('30');
@@ -44,7 +50,9 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [
             'menus' => $menus,
             'coordinates' => $coordinates,
-            'darkMode' => $darkMode
+            'darkMode' => $darkMode,
+            'listes' => $lists,
+            'elements' => $elements
         ]);
     }
 
@@ -112,5 +120,62 @@ class DefaultController extends Controller
      */
     public function testChecklist(Request $request){
         return $this->render('default/checklist.html.twig');
+    }
+
+    /**
+     * @Route("/addListe", name="add-checklist", options={"expose" = true})
+     */
+    public function addChecklistAction(Request $request){
+        $name = $request->request->get('name');
+        $em = $this->getDoctrine()->getManager();
+        $liste = new Liste();
+        $liste->setName($name);
+        $em->persist($liste);
+        $em->flush();
+        return new Response('Test');
+    }
+
+    /**
+     * @Route("/addListElement", name="add-element", options={"expose" = true})
+     */
+    public function addChecklistElementAction(Request $request){
+        $name = $request->request->get('name');
+        $list = $request->request->get('list');
+        $em = $this->getDoctrine()->getManager();
+        $listElement = new ElementListe();
+        $listElement->setName($name);
+        $listElement->setDisplayed(true);
+        $listElement->setChecked(false);
+        $listElement->setListe($this->getDoctrine()->getManager()->getRepository('AppBundle:Liste')->find($list));
+        $em->persist($listElement);
+        $em->flush();
+        return new Response('Test');
+    }
+
+    /**
+     * @Route("/removeListElement", name="remove-display", options={"expose" = true})
+     */
+    public function removeElementDisplayAction(Request $request){
+        $id = $request->request->get('element');
+        $em = $this->getDoctrine()->getManager();
+        $listElement = $em->getRepository('AppBundle:ElementListe')->find($id);
+        $listElement->setDisplayed(false);
+        $em->persist($listElement);
+        $em->flush();
+        return new Response('Test');
+    }
+
+    /**
+     * @Route("/checkListElement", name="check", options={"expose" = true})
+     */
+    public function checkElementAction(Request $request){
+        $id = $request->request->get('element');
+        $em = $this->getDoctrine()->getManager();
+        $listElement = $em->getRepository('AppBundle:ElementListe')->find($id);
+        if($listElement->getChecked()){ $listElement->setChecked(false);}
+        else{$listElement->setChecked(true);}
+        $em->persist($listElement);
+        $em->flush();
+        return new Response('Test');
     }
 }

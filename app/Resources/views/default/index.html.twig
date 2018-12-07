@@ -27,6 +27,41 @@
                     <div id="plotMaintenance"></div>
                 </div>
 
+                <div id="checklistLayer" class="text-center" style="display: none;">
+                    <div class="row" id ="allChecklist">
+                        {% if listes is not empty %}
+                        {% for liste in listes %}
+                            {% if loop.last %}{% set lastElementId = liste.id %}{% endif %}
+                            <div class="col-md-3 col-sm-10 col-10">
+                                <div id="liste{{liste.id}}" class="header liste">
+                                    <h2 style="margin:5px">{{ liste.name }}</h2>
+                                    <input type="text" id="inputListe{{ liste.id }}" placeholder="Title...">
+                                    <span onclick="newElement('inputListe{{ liste.id }}', 'myUL{{ liste.id }}')" class="addBtn">Add</span>
+                                </div>
+
+                                <ul id="myUL{{ liste.id }}" data-internalid="{{ liste.id }}">
+                                    {% for listeElement in elements %}
+                                        {% if listeElement.liste.id == liste.id %}
+                                            <li onclick="check('myUL{{ liste.id }}')" data-listid="{{ liste.id }}" data-elementid="{{ listeElement.id }}" {% if listeElement.displayed == 0 %}style="display: none"{% endif %} {% if listeElement.checked == 1 %}class="checked"{% endif %}>{{ listeElement.name }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-10 col-10">
+                            <form style="margin-top: 35%">
+                                <input type="text" class="form-control" id="nameList">
+                                <button type="button" class="btn btn-success btn-lg btn-block" id="addListe">Ajouter une liste</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="weatherLayer" style="display: none;">
                     <table class="table">
                         <thead>

@@ -163,6 +163,12 @@ $('#maintenanceDisplayer').on('click', function () {
     //plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
 });
 
+$('#checklistDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#checklistLayer').addClass('active').fadeIn();
+
+});
+
 $('#locationDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#locationLayer').addClass('active').fadeIn();

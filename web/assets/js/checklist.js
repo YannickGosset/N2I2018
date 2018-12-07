@@ -1,7 +1,6 @@
-//*************************************
-// HELP WITH https://www.w3schools.com/howto/howto_js_todolist.asp
-//*************************************
+
 // Create a "close" button and append it to each list item
+
 var myNodelist = document.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -18,7 +17,15 @@ var i;
 for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
         var div = this.parentElement;
-        div.style.display = "none";
+        $.ajax({
+            url: Routing.generate('remove-display'),
+            type: 'POST', // Le type de la requête HTTP.
+            data: {
+                element: div.getAttribute('data-elementid')
+            }
+        }).done(function (data) {
+            window.location.replace(Routing.generate('checklist'));
+        });
     }
 }
 
@@ -30,36 +37,60 @@ function check(nameUL) {
     var list = document.getElementById(nameUL);
     list.addEventListener('click', function(ev) {
         if (ev.target.tagName === 'LI') {
-            ev.target.classList.toggle('checked');
-        } else {
-            console.log("poisson");
+            $.ajax({
+                url: Routing.generate('check'),
+                type: 'POST', // Le type de la requête HTTP.
+                data: {
+                    element: ev.target.getAttribute('data-elementid')
+                }
+            }).done(function (data) {
+                window.location.replace(Routing.generate('checklist'));
+            });
         }
     }, false);
 
 }
 // Create a new list item when clicking on the "Add" button
 function newElement(nameInput, nameUL) {
-    var li = document.createElement("li");
-    var inputValue = document.getElementById(nameInput).value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    if (inputValue === '') {
+    var name = document.getElementById(nameInput).value;
+    var list = document.getElementById(nameUL).getAttribute('data-internalid');
+    if (name === '') {
         alert("You must write something!");
     } else {
-        document.getElementById(nameUL).appendChild(li);
+
+        $.ajax({
+            url: Routing.generate('add-element'),
+            type: 'POST', // Le type de la requête HTTP.
+            data: {
+                name: name,
+                list: list
+            }
+        }).done(function (data) {
+            window.location.replace(Routing.generate('checklist'));
+        });
     }
-    document.getElementById(nameInput).value = "";
 
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    li.appendChild(span);
+}
 
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-        }
+//Create a new list with a name
+function addList(lastId){
+    var name = document.getElementById("nameList").value;
+    if(name === ''){ alert("You must write something!"); }
+    else{
+        $.ajax({
+            url: Routing.generate('add-checklist'),
+            type : 'POST', // Le type de la requête HTTP.
+            data : {
+                name: name
+            }
+        }).done(function(data){
+            window.location.replace(Routing.generate('checklist'));
+        });
     }
 }
+
+$(document).on('click', '#addListe', function(){
+    lastListeId = lastListeId + 1;
+    addList(lastListeId);
+});
+console.log(lastListeId);
