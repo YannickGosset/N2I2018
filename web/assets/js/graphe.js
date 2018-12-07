@@ -30,11 +30,10 @@ function setTitle(options, title){
     return options;
 }
 
-function updateSeries() {
-    myData.splice(0, 1);
-    x = (new Date()).getTime();
-    y = Math.floor(Math.random() * 100);
-    myData.push([x, y]);
+function updateHeartBeatFreq(heartbeatPlot) {
+    heartbeat.splice(0, 1);
+    beat = Math.floor(Math.random() * 100);
+    heartbeat.push([beat]);
 
     plot1.series[0].data = myData;
     plot1.resetAxesScale();
