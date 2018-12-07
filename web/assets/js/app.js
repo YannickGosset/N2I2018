@@ -50,7 +50,7 @@ let options = {
 
 options = addCursor(options);
 options = addHighlighting(options);
-options = setTitle(options, 'Body Temperature');
+options = setTitle(options, 'Room Temperature');
 //var plot = createPlot('chart', [[30,-10,90,20,50,130,80,120,50]], options);
 let labels = ['Eau', 'Nourriture'];
 let optionsReserve = {
@@ -59,16 +59,21 @@ let optionsReserve = {
             renderer:$.jqplot.DateAxisRenderer,
             rendererOptions: {tickInset: 0},
             tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-            tickOptions: {angle: -30},
+            tickOptions: {angle: -30, fontSize: '8pt', textColor:'black'},
             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-            labelsOptions: {fontSize: '50pt', textColor: 'black'}
+            labelOptions: {fontSize: '8pt', textColor: 'black'}
         },
         yaxis:{
             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-            useSeriesColor : true,
+            labelOptions: {fontSize: '8pt', textColor: 'black'},
+            //tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+            tickOptions: {fontSize: '8pt', textColor:'black'},
+            rendererOptions: {
+                // align the ticks on the yN axis with the y axis.
+                alignTicks: false
+            },
             padMax : 1.01,
-            padMin : 1.01,
-            labelsOptions: {fontSize: '50pt', textColor: 'red'}
+            padMin : 1.01
         }
     },
     legend: {
