@@ -207,11 +207,20 @@ $('#healthDisplayer').on('click', function () {
     window.setInterval(updateSeries, 1000);
 });
 
-$('#checklistDisplayer').on('click', function () {
-    $('.active').removeClass('active').fadeOut();
-    $('#checklistLayer').addClass('active').fadeIn();
+<<<<<<< HEAD
+
+
+$('#nightMode').on('change', function () {
+    nightMode = !nightMode;
+    if(nightMode){
+        plotReserve.activateTheme('darkThemeReserve');
+    } else {
+
+    }
 });
 
+=======
+>>>>>>> c9c977ae4d54dc612bc2ca363cd5df3e739724c4
 $('#locationDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#locationLayer').addClass('active').fadeIn();
