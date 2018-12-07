@@ -1,6 +1,102 @@
 const OWeatherMapAPIKey = "947d2e709c1ef57b6f9227766170be0e";
+let nightMode = false;
 let map;
 let marker;
+
+let darkTheme = {
+    title: {
+        textColor: '#b7b7b7'
+    },
+    series: [
+        {color: '#000098', highlightColor: '#0000c8'},
+        {color: '#989800', highlightColor: '#c8c800'}
+    ],
+    grid: {
+        backgroundColor: '#000000',
+        gridLineColor: '#777777',
+        borderColor: '#777777'
+    },
+    legend: {
+        background: '#000000',
+        textColor: '#b7b7b7',
+        border: '0px'
+    }
+
+};
+
+let options = {
+    series: [{
+        label: 'Temperature',
+        neighborThreshold: -1
+    }],
+    canvasOverlay: {
+        show: true,
+        objects: [
+            {
+                rectangle: {
+                    ymax: 0, xminOffset: "0px", xmaxOffset: "0px", yminOffset: "0px", ymaxOffset: "0px",
+                    color: "rgba(0, 0, 200, 0.3)", showTooltip: true, tooltipFormatString: "Too Cold"
+                }
+            },
+            {
+                rectangle: {
+                    ymin: 100, xminOffset: "0px", xmaxOffset: "0px", yminOffset: "0px", ymaxOffset: "0px",
+                    color: "rgba(200, 0, 0, 0.3)", showTooltip: true, tooltipFormatString: "Too Warm"
+                }
+            }
+        ]
+    }
+};
+
+options = addCursor(options);
+options = addHighlighting(options);
+options = setTitle(options, 'Body Temperature');
+//var plot = createPlot('chart', [[30,-10,90,20,50,130,80,120,50]], options);
+let labels = ['Eau', 'Nourriture'];
+let optionsReserve = {
+    axes: {
+        xaxis: {
+            renderer:$.jqplot.DateAxisRenderer,
+            rendererOptions: {tickInset: 0},
+            tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+            tickOptions: {angle: -30},
+            labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+            labelsOptions: {fontSize: '50pt', textColor: 'black'}
+        },
+        yaxis:{
+            labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+            useSeriesColor : true,
+            padMax : 1.01,
+            padMin : 1.01,
+            labelsOptions: {fontSize: '50pt', textColor: 'red'}
+        }
+    },
+    legend: {
+        show: true,
+        renderer: $.jqplot.EnhancedLegendRenderer,
+        placement: "outsideGrid",
+        labels: labels,
+        location: "s",
+        rowSpacing: "0px",
+        shrinkGrid : true,
+
+        rendererOptions: {
+            // set to true to replot when toggling series on/off
+            // set to an options object to pass in replot options.
+            numberColumns : 3,
+            seriesToggle: 'normal',
+            seriesToggleReplot: {resetAxes: true}
+        }
+    }
+};
+optionsReserve = setTitle(optionsReserve,'Réserves');
+optionsReserve = addCursor(optionsReserve);
+optionsReserve = addHighlighting(optionsReserve);
+
+let dataReserve = [
+    [['6/12/2018',1000],['7/12/2018',950],['8/12/2018',870],['9/12/2018',842], ['10/12/2018',903]],
+    [['6/12/2018',2000],['7/12/2018',1210],['8/12/2018',1822],['9/12/2018',2520], ['10/12/2018',1052]]
+];
 
 
 $(document).ready(function () {
@@ -21,6 +117,22 @@ $('#weatherDisplayer').on('click', function () {
 $('#settingsDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#settingsLayer').addClass('active').fadeIn();
+});
+
+$('#reserveDisplayer').on('click', function () {
+    $('.active').removeClass('active').fadeOut();
+    $('#reserveLayer').addClass('active').fadeIn();
+    let plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
+    plotReserve.themeEngine.newTheme('darkTheme', darkTheme);
+});
+
+$('#nightMode').on('change', function () {
+    nightMode = !nightMode;
+    if(nightMode){
+        plotReserve.activateTheme('darkTheme');
+    } else {
+
+    }
 });
 
 $('#locationDisplayer').on('click', function () {
