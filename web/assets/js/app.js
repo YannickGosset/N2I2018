@@ -2,6 +2,7 @@ const OWeatherMapAPIKey = "947d2e709c1ef57b6f9227766170be0e";
 let nightMode = false;
 let map;
 let marker;
+let plotReserve;
 
 let darkThemeReserve = {
     title: {
@@ -148,8 +149,11 @@ $('#settingsDisplayer').on('click', function () {
 $('#reserveDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#reserveLayer').addClass('active').fadeIn();
-    let plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
-    plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+    plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
+    if(nightMode){
+        plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+        plotReserve.activateTheme('darkThemeReserve');
+    }
 });
 
 $('#maintenanceDisplayer').on('click', function () {
