@@ -94,4 +94,11 @@ class DefaultController extends Controller
     public function testGraphAction(Request $request){
         return $this->render('default/testgraphe.html.twig');
     }
+
+    /**
+     * @Route("/checklist", name="checklist")
+     */
+    public function testChecklist(Request $request){
+        return $this->render('default/checklist.html.twig');
+    }
 }
