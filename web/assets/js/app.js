@@ -3,6 +3,7 @@ const OWeatherMapAPIKey = "947d2e709c1ef57b6f9227766170be0e";
 let nightMode = false;
 let map;
 let marker;
+let plotReserve;
 
 let darkThemeReserve = {
     title: {
@@ -186,8 +187,11 @@ $('#settingsDisplayer').on('click', function () {
 $('#reserveDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#reserveLayer').addClass('active').fadeIn();
-    let plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
-    plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+    plotReserve = createPlot('plotReserve', dataReserve, optionsReserve);
+    if(nightMode){
+        plotReserve.themeEngine.newTheme('darkThemeReserve', darkThemeReserve);
+        plotReserve.activateTheme('darkThemeReserve');
+    }
 });
 
 $('#maintenanceDisplayer').on('click', function () {
@@ -203,6 +207,7 @@ $('#healthDisplayer').on('click', function () {
     window.setInterval(updateSeries, 1000);
 });
 
+<<<<<<< HEAD
 
 
 $('#nightMode').on('change', function () {
@@ -214,6 +219,8 @@ $('#nightMode').on('change', function () {
     }
 });
 
+=======
+>>>>>>> c9c977ae4d54dc612bc2ca363cd5df3e739724c4
 $('#locationDisplayer').on('click', function () {
     $('.active').removeClass('active').fadeOut();
     $('#locationLayer').addClass('active').fadeIn();
