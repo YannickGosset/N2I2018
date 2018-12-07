@@ -68,6 +68,7 @@ let optionsMaintenance = {
 optionsMaintenance = addCursor(optionsMaintenance);
 optionsMaintenance = addHighlighting(optionsMaintenance);
 optionsMaintenance = setTitle(optionsMaintenance, 'Engine Temperature');
+toggleOnAnimatePlot(optionsMaintenance);
 let dataMaintenance = [[30,-10,90,20,50,130,80,120,50]];
 
 let labels = ['Eau', 'Nourriture'];
@@ -96,6 +97,7 @@ let optionsReserve = {
     },
     legend: {
         show: true,
+        preDraw: true,
         renderer: $.jqplot.EnhancedLegendRenderer,
         placement: "outsideGrid",
         labels: labels,
@@ -115,6 +117,7 @@ let optionsReserve = {
 optionsReserve = setTitle(optionsReserve,'Réserves');
 optionsReserve = addCursor(optionsReserve);
 optionsReserve = addHighlighting(optionsReserve);
+toggleOnAnimatePlot(optionsReserve);
 
 let dataReserve = [
     [['6/12/2018',1000],['7/12/2018',950],['8/12/2018',870],['9/12/2018',842], ['10/12/2018',903]],
